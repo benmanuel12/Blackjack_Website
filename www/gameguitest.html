@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="scripts/game.js"></script>
     <style>
         #gameholder {
             width: auto;
@@ -54,12 +55,13 @@
         
         #middle {
             display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-columns: 3fr 1fr;
         }
         
         #info {
             display: grid;
             grid-template-rows: 1fr 1fr;
+            height: 250px;
         }
     </style>
 </head>
@@ -74,19 +76,11 @@
             <canvas id=compcard4></canvas>
         </div>
         <div id=middle>
-            <canvas id=deck>
-            </canvas>
             <div id=info>
-                <div id=compinfo>
-                    Computer's hand scores X
-                </div>
-                <div id=playerinfo>
-                    Player's hand scores X
-                </div>
+                <canvas id=compinfo></canvas>
+                <canvas id=playerinfo></canvas>
             </div>
-            <canvas id=score>
-
-            </canvas>
+            <canvas id=score></canvas>
         </div>
         <div id=playerhand>
             <canvas id=playercard0></canvas>
@@ -101,6 +95,7 @@
         </div>
 
     </div>
+    <button type="button" onclick="setupGame();">Run Setup</button>
 </body>
 
 </html>

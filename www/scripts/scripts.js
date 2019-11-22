@@ -1,5 +1,5 @@
-console.log('Script running');
 let accounts = [];
+
 function signup() {
     let newUsername = document.getElementById('username').value;
     let newPassword = document.getElementById('password').value;
@@ -12,7 +12,7 @@ function signup() {
             if (!isNaN(newPhone)) {
                 //if (newEmail ==/[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]+@[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]+/){
                 let isUnique = true;
-                if (localStorage.length != 0){
+                if (localStorage.length != 0) {
                     for (i = 0; i < localStorage.length; i++) {
                         current = localStorage.getItem(i);
                         currentString = JSON.parse(current);
@@ -21,7 +21,7 @@ function signup() {
                         }
                     }
                 }
-                
+
                 if (isUnique == true) {
                     let newAccount = {
                         username: newUsername,
@@ -48,6 +48,7 @@ function signup() {
     alert("Sign up successful");
 
 }
+
 function login() {
     let givenUsername = document.getElementById('username').value;
     let givenPassword = document.getElementById('password').value;
@@ -68,4 +69,3 @@ function login() {
         alert("No account found");
     }
 }
-
