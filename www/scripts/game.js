@@ -1,7 +1,7 @@
 let compHandArray = [0, 0, 0, 0, 0];
 let playerHandArray = [0, 0, 0, 0, 0];
 let turnTracker = 0; //0 = between turns, 1 = computer's turn, 2 = player's turn
-let deck = []
+let deck = ["1", "2", "3", "4", "5"];
 let suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
 let faceNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
 let faceValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
@@ -16,13 +16,13 @@ function setupGame() {
 
     // assemble deck
     let index = 0
-    for (i = 0; i < suits.length; i++) {
-        for (j = 0; j < faceNames.length; j++) {
-            //console.log(faceNames[j] + " of " + suits[i]);
-            deck[index] = faceNames[j] + " of " + suits[i];
-            index++;
-        }
-    }
+        //for (i = 0; i < suits.length; i++) {
+        //    for (j = 0; j < faceNames.length; j++) {
+        //console.log(faceNames[j] + " of " + suits[i]);
+        //        deck[index] = faceNames[j] + " of " + suits[i];
+        //        index++;
+        //    }
+        //}
 
     // have each player draw 2 cards
     drawCards("comp", 2);
@@ -35,22 +35,23 @@ function setupGame() {
     updateBoard(compCurrent, playerCurrent);
 
     //Reset the tickers
-    console.log(compCurrent);
     updateInfo("compinfo", compCurrent);
-    console.log("here");
     updateInfo("playerinfo", playerCurrent);
-    console.log(document.getElementById("compinfo").innerHTML);
 
 }
 
 function drawCards(thePlayer, noOfCards) {
+    //console.log(noOfCards);
     for (i = 0; i < noOfCards; i++) {
         randomCard = "";
         while (randomCard == "") {
-            randomIndex = Math.round(Math.random() * 52);
+            randomIndex = Math.floor(Math.random() * deck.length);
             randomCard = deck[randomIndex];
         }
+        console.log(deck);
+        console.log(randomIndex);
         deck[randomIndex] = "";
+        console.log(deck);
         if (thePlayer == "comp") {
             cardPlaced = false;
             testIndex = 0;
@@ -165,10 +166,10 @@ function cleanUpAndReset() {
 }
 
 function updateInfo(element, data) {
-    if (element = "compinfo") {
-        document.getElementById(element).innerHTML = "Computers hand: " + data;
-    } else if (element = "playerinfo") {
-        document.getElementById(element).innerHTML = "Players hand: " + data;
+    if (element == "compinfo") {
+        document.getElementById(element).innerHTML = "Computer's hand: " + data;
+    } else if (element == "playerinfo") {
+        document.getElementById(element).innerHTML = "Player's hand: " + data;
     }
 }
 
