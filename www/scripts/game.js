@@ -1,14 +1,14 @@
 let compHandArray = [0, 0, 0, 0, 0];
 let playerHandArray = [0, 0, 0, 0, 0];
-let compGoneBust = false;
-let playerGoneBust = false;
-let compWon = false;
-let playerWon = false;
+let turnTracker = 0; //0 = between turns, 1 = computer's turn, 2 = player's turn
 let deck = []
 let suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
 let faceNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
-let faceValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-
+let faceValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+let compCurrent = 0;
+let playerCurrent = 0;
+let compTotal = 0;
+let playerTotal = 0;
 
 
 
@@ -23,29 +23,24 @@ function setupGame() {
             index++;
         }
     }
-    console.log(deck);
 
-    //Reset the cumulative scoreboard
-    let scoreCanvas = document.getElementById("score");
-    let context = scoreCanvas.getContext('2d');
-    context.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
-
-    //Reset the tickers
-
-    // possibly better as <p> that I can innerHTML to change
-    let compInfoCanvas = document.getElementById("score");
-    context = compInfoCanvas.getContext('2d');
-    context.clearRect(0, 0, compInfoCanvas.width, compInfoCanvas.height);
-    let playerInfoCanvas = document.getElementById("score");
-    context = playerInfoCanvas.getContext('2d');
-    context.clearRect(0, 0, playerInfoCanvas.width, playerInfoCanvas.height);
-
-    console.log("gothere");
     // have each player draw 2 cards
     drawCards("comp", 2);
     drawCards("player", 2);
 
-    //alert("Game is set up - Dismiss this window to start");
+    compCurrent = calculateScore(compHandArray);
+    playerCurrent = calculateScore(playerHandArray)
+
+    //Reset the cumulative scoreboard
+    updateBoard(compCurrent, playerCurrent);
+
+    //Reset the tickers
+    console.log(compCurrent);
+    updateInfo("compinfo", compCurrent);
+    console.log("here");
+    updateInfo("playerinfo", playerCurrent);
+    console.log(document.getElementById("compinfo").innerHTML);
+
 }
 
 function drawCards(thePlayer, noOfCards) {
@@ -65,12 +60,10 @@ function drawCards(thePlayer, noOfCards) {
                     cardPlaced = true;
                     canvasId = "compcard" + testIndex.toString();
                     let relevantCanvas = document.getElementById(canvasId);
-                    var ctx = relevantCanvas.getContext("2d");
+                    let ctx = relevantCanvas.getContext("2d");
                     ctx.font = "30px Comic Sans MS";
-                    ctx.fillStyle = "red";
                     ctx.textAlign = "center";
                     ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
-
                 }
                 testIndex++;
             }
@@ -79,13 +72,12 @@ function drawCards(thePlayer, noOfCards) {
             testIndex = 0;
             while ((!cardPlaced) && (testIndex < 5)) {
                 if (playerHandArray[testIndex] == 0) {
-                    compHandArray[testIndex] = faceValues[randomIndex];
+                    playerHandArray[testIndex] = faceValues[randomIndex];
                     cardPlaced = true;
                     canvasId = "playercard" + testIndex.toString();
                     let relevantCanvas = document.getElementById(canvasId);
-                    var ctx = relevantCanvas.getContext("2d");
+                    let ctx = relevantCanvas.getContext("2d");
                     ctx.font = "30px Comic Sans MS";
-                    ctx.fillStyle = "red";
                     ctx.textAlign = "center";
                     ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
                 }
@@ -95,48 +87,118 @@ function drawCards(thePlayer, noOfCards) {
     }
 }
 
+function twist() {
+    if (turnTracker == 2) {
+        drawCards("player", 1);
+        playerCurrent = calculateScore(playerHandArray);
+        document.getElementById("playerinfo").innerHTML = "Your hand: " + playerCurrent;
+    }
+
+}
+
+function stick() {
+    if (turnTracker == 2) {
+        turnDone = true;
+    }
+}
+
+function compareHands() {
+    compCurrent = calculateScore(compHandArray);
+    playerCurrent = calculateScore(playerHandArray);
+    if (compCurrent >= playerCurrent) {
+        alert("You lost");
+        compTotal += compCurrent;
+        updateBoard(compTotal, playerTotal);
+    } else {
+        alert("You won");
+        playerTotal += playerCurrent;
+        updateBoard(compTotal, playerTotal);
+    }
+}
+
+function calculateScore(hand) {
+    sum = 0
+    for (i = 0; i < hand.length; i++) {
+        sum = sum + hand[i];
+    }
+    if ((sum > 21) && (hand.includes(11))) {
+        //that hand is possibly Bust
+        for (i = 0; i < hand.length; i++) {
+            if (hand[i] == 11) {
+                hand[i] = 1;
+            }
+        }
+        calculateScore(hand);
+    } else {
+        return sum;
+    }
+
+}
+
+function checkBust(who) {
+    if (who == "player") {
+        return calculateScore(playerHandArray) > 21;
+    } else if (who == "comp") {
+        return calculateScore(compHandArray) > 21;
+    }
+}
+
+function whoWon() {
+    if (calculateScore(playerHandArray) > calculateScore(compHandArray)) {
+        alert("You won this round");
+    } else {
+        alert("You lost this round");
+    }
+}
+
+function cleanUpAndReset() {
+    // clear hands
+    compHandArray = [0, 0, 0, 0, 0]
+    playerHandArray = [0, 0, 0, 0, 0]
+    compCurrent = 0;
+    playerCurrent = 0;
+    // reset info
+    updateInfo("compinfo", 0);
+    updateInfo("playerinfo", 0)
+    drawCards("comp", 2);
+    drawCards("comp", 2);
+}
+
+function updateInfo(element, data) {
+    if (element = "compinfo") {
+        document.getElementById(element).innerHTML = "Computers hand: " + data;
+    } else if (element = "playerinfo") {
+        document.getElementById(element).innerHTML = "Players hand: " + data;
+    }
+}
+
+function updateBoard(val1, val2) {
+    document.getElementById("score").innerHTML = ("Total score this game:<br>Computer | " + val1 + "\n Player | " + val2);
+}
+
+function oneRound() {
+    turnTracker = 1;
+    // comp turn
+    if (checkBust("comp")) {
+        break;
+    } else {
+        turnDone = false;
+        turnTracker = 2;
+        // player turn
+        while (!turnDone) {
+            console.log("waiting for input");
+        }
+        if (checkBust("player")) {
+            break;
+        } else {
+            turnTracker = 0;
+            compareHands();
+        }
+    }
+    whoWon();
+    setupGame();
+    oneRound();
+}
+
 window.onload = setupGame;
-console.log(playerHandArray);
-console.log(compHandArray);
-
-// How the game should work
-
-//when page loads, display running score table with 0 on both sides, put all cards back in deck
-
-// while the quit button is not pressed, start the loop for one round of blackjack
-
-//One round
-// draw both players 2 cards
-// computer goes first
-// compute computers hand total
-// while that total is low enough for it to be safe to draw (Twist) and not Bust
-//  pause
-//  announce on middle ticker that computer intends to draw
-//  draw a card
-// if computer is Bust, announce that player wins and skip player turn
-
-// Announce on middle ticker that computer is passing
-// announce on middle ticker that its now the players turn
-
-// draw the player 2 cards and calculate their hand total
-// while player hasn't pressed Stick button or gone Bust
-//  await button presses
-//  these should be separate functions tied to the button but whatever
-//  Twist - Draw a card to hand and update total
-//  Stick - Confirm you are finished drawing cards
-//  both should probably be unable to be clicked while either is in use
-// if player goes Bust, then announce that computer wins and skip calculation of winner
-
-// update running score table with both scores
-
-// now calculate winner
-// assuming that Busts are dealt with earlier
-// if (computerTotal > playerTotal) 
-// create popup that computer has won with button to play again
-//
-// else if (computerTotal < playerTotal) 
-// create popup that player has won with button to play again
-//
-// else 
-//create popup that computer has won with button to play again
-//
+turnTracker = 2;

@@ -55,13 +55,22 @@
         
         #middle {
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: 2fr 1fr;
         }
         
         #info {
             display: grid;
             grid-template-rows: 1fr 1fr;
             height: 250px;
+        }
+        
+        body {
+            font-family: "Comic Sans MS";
+            font-size: 30px;
+        }
+        
+        p {
+            text-align: center;
         }
     </style>
 </head>
@@ -77,10 +86,10 @@
         </div>
         <div id=middle>
             <div id=info>
-                <canvas id=compinfo></canvas>
-                <canvas id=playerinfo></canvas>
+                <p id=compinfo></p>
+                <p id=playerinfo></p>
             </div>
-            <canvas id=score></canvas>
+            <p id=score></p>
         </div>
         <div id=playerhand>
             <canvas id=playercard0></canvas>
@@ -90,8 +99,8 @@
             <canvas id=playercard4></canvas>
         </div>
         <div id=buttonbar>
-            <button type="button" onclick="">Twist</button>
-            <button type="button" onclick="">Stick</button>
+            <button type="button" onclick="twist()">Twist</button>
+            <button type="button" onclick="stick()">Stick</button>
         </div>
 
     </div>
