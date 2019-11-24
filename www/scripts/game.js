@@ -14,15 +14,16 @@ let playerTotal = 0;
 
 function setupGame() {
 
+    turnTracker = 0;
+
     // assemble deck
     let index = 0
-        //for (i = 0; i < suits.length; i++) {
-        //    for (j = 0; j < faceNames.length; j++) {
-        //console.log(faceNames[j] + " of " + suits[i]);
-        //        deck[index] = faceNames[j] + " of " + suits[i];
-        //        index++;
-        //    }
-        //}
+    for (i = 0; i < suits.length; i++) {
+        for (j = 0; j < faceNames.length; j++) {
+            deck[index] = faceNames[j] + " of " + suits[i];
+            index++;
+        }
+    }
 
     // have each player draw 2 cards
     drawCards("comp", 2);
@@ -38,10 +39,12 @@ function setupGame() {
     updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent);
 
+    alert("dismiss to start");
+    oneRound();
+
 }
 
 function drawCards(thePlayer, noOfCards) {
-    //console.log(noOfCards);
     for (i = 0; i < noOfCards; i++) {
         randomCard = "";
         while (randomCard == "") {
@@ -104,17 +107,16 @@ function stick() {
 }
 
 function compareHands() {
-    compCurrent = calculateScore(compHandArray);
-    playerCurrent = calculateScore(playerHandArray);
+    //compCurrent = calculateScore(compHandArray);
+    //playerCurrent = calculateScore(playerHandArray);
     if (compCurrent >= playerCurrent) {
         alert("You lost");
         compTotal += compCurrent;
-        updateBoard(compTotal, playerTotal);
     } else {
         alert("You won");
         playerTotal += playerCurrent;
-        updateBoard(compTotal, playerTotal);
     }
+    updateBoard(compTotal, playerTotal);
 }
 
 function calculateScore(hand) {
@@ -144,14 +146,6 @@ function checkBust(who) {
     }
 }
 
-function whoWon() {
-    if (calculateScore(playerHandArray) > calculateScore(compHandArray)) {
-        alert("You won this round");
-    } else {
-        alert("You lost this round");
-    }
-}
-
 function cleanUpAndReset() {
     // clear hands
     compHandArray = [0, 0, 0, 0, 0]
@@ -162,7 +156,7 @@ function cleanUpAndReset() {
     updateInfo("compinfo", 0);
     updateInfo("playerinfo", 0)
     drawCards("comp", 2);
-    drawCards("comp", 2);
+    drawCards("player", 2);
 }
 
 function updateInfo(element, data) {
@@ -177,29 +171,44 @@ function updateBoard(val1, val2) {
     document.getElementById("score").innerHTML = ("Total score this game:<br>Computer | " + val1 + "\n Player | " + val2);
 }
 
+async function compTurn() {
+    while (compCurrent <= 16) {
+        drawCards("comp", 1);
+        compCurrent = calculateScore(compHandArray);
+        updateInfo("comp", compCurrent);
+        await sleep(5000);
+    }
+}
+
 function oneRound() {
     turnTracker = 1;
-    // comp turn
+    console.log("Starting computer turn");
+    compTurn()
     if (checkBust("comp")) {
-        break;
+        playerTotal += playerCurrent;
+        updateBoard(compTotal, playerTotal);
     } else {
         turnDone = false;
         turnTracker = 2;
+        console.log("Starting player turn");
         // player turn
         while (!turnDone) {
             console.log("waiting for input");
         }
         if (checkBust("player")) {
-            break;
+            compTotal += compCurrent;
+            updateBoard(compTotal, playerTotal);
         } else {
             turnTracker = 0;
             compareHands();
         }
     }
-    whoWon();
-    setupGame();
+    console.log("running end of round functions");
+    cleanUpAndReset();
     oneRound();
 }
 
 window.onload = setupGame;
 turnTracker = 2;
+
+// add code to mask all dealers cards but the left most one until you press stick
