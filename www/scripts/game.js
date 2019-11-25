@@ -33,7 +33,7 @@ function setupGame() {
     playerCurrent = calculateScore(playerHandArray)
 
     //Reset the cumulative scoreboard
-    updateBoard(compCurrent, playerCurrent);
+    updateBoard(0, 0);
 
     //Reset the tickers
     updateInfo("compinfo", compCurrent);
@@ -51,10 +51,7 @@ function drawCards(thePlayer, noOfCards) {
             randomIndex = Math.floor(Math.random() * deck.length);
             randomCard = deck[randomIndex];
         }
-        console.log(deck);
-        console.log(randomIndex);
         deck[randomIndex] = "";
-        console.log(deck);
         if (thePlayer == "comp") {
             cardPlaced = false;
             testIndex = 0;
@@ -95,20 +92,30 @@ function twist() {
     if (turnTracker == 2) {
         drawCards("player", 1);
         playerCurrent = calculateScore(playerHandArray);
-        document.getElementById("playerinfo").innerHTML = "Your hand: " + playerCurrent;
+        updateInfo("playerinfo", playerCurrent);
     }
 
 }
 
 function stick() {
     if (turnTracker == 2) {
-        turnDone = true;
+        console.log("Pressed stick");
+        if (checkBust("player")) {
+            updateInfo("playerinfo", "Bust");
+            compTotal += compCurrent;
+            updateBoard(compTotal, playerTotal);
+        } else {
+            compareHands();
+        }
+        turnTracker = 0;
+        console.log("running end of round functions");
+        cleanUpAndReset();
+        oneRound();
+
     }
 }
 
 function compareHands() {
-    //compCurrent = calculateScore(compHandArray);
-    //playerCurrent = calculateScore(playerHandArray);
     if (compCurrent >= playerCurrent) {
         alert("You lost");
         compTotal += compCurrent;
@@ -152,6 +159,16 @@ function cleanUpAndReset() {
     playerHandArray = [0, 0, 0, 0, 0]
     compCurrent = 0;
     playerCurrent = 0;
+
+    // wipe canvasses
+    canvasses = ["compcard0", "compcard2", "compcard2", "compcard3", "compcard4", "playercard0", "playercard1", "playercard2", "playercard3", "playercard4"]
+    let currentCanvas;
+    let context;
+    for (i = 0; i < canvasses.length; i++) {
+        currentCanvas = document.getElementById(canvasses[i]);
+        context = currentCanvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
     // reset info
     updateInfo("compinfo", 0);
     updateInfo("playerinfo", 0)
@@ -171,12 +188,13 @@ function updateBoard(val1, val2) {
     document.getElementById("score").innerHTML = ("Total score this game:<br>Computer | " + val1 + "\n Player | " + val2);
 }
 
-async function compTurn() {
+function compTurn() {
     while (compCurrent <= 16) {
+        console.log("I draw");
         drawCards("comp", 1);
         compCurrent = calculateScore(compHandArray);
-        updateInfo("comp", compCurrent);
-        await sleep(5000);
+        updateInfo("compinfo", compCurrent);
+
     }
 }
 
@@ -185,30 +203,18 @@ function oneRound() {
     console.log("Starting computer turn");
     compTurn()
     if (checkBust("comp")) {
+        updateInfo("compinfo", "Bust");
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
     } else {
         turnDone = false;
         turnTracker = 2;
         console.log("Starting player turn");
-        // player turn
-        while (!turnDone) {
-            console.log("waiting for input");
-        }
-        if (checkBust("player")) {
-            compTotal += compCurrent;
-            updateBoard(compTotal, playerTotal);
-        } else {
-            turnTracker = 0;
-            compareHands();
-        }
     }
-    console.log("running end of round functions");
-    cleanUpAndReset();
-    oneRound();
 }
 
 window.onload = setupGame;
 turnTracker = 2;
 
 // add code to mask all dealers cards but the left most one until you press stick
+// make sure graphics are reset between rounds and games
