@@ -107,6 +107,7 @@ function stick() {
             updateInfo("playerinfo", "Bust");
             compTotal += compCurrent;
             updateBoard(compTotal, playerTotal);
+            console.log("You have gone bust. The computer wins");
         } else {
             compareHands();
         }
@@ -173,12 +174,14 @@ function cleanUpAndReset() {
         context.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
     }
     // reset info
-    updateInfo("compinfo", 0);
-    updateInfo("playerinfo", 0)
+
     drawCards("comp", 2);
     drawCards("player", 2);
     compCurrent = calculateScore(compHandArray);
     playerCurrent = calculateScore(playerHandArray);
+    updateInfo("compinfo", compCurrent);
+    updateInfo("playerinfo", playerCurrent)
+    console.log("Starting new game");
 
 }
 
@@ -205,12 +208,18 @@ function compTurn() {
     turnTracker = 1;
     console.log("Starting computer turn");
     while (compCurrent <= 16) {
-        setTimeout(compDraw, 1000);
+        //setTimeout(compDraw, 1000);
+        compDraw();
     }
     if (checkBust("comp")) {
         updateInfo("compinfo", "Bust");
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
+        console.log("The computer has gone bust. You win");
+        turnTracker = 0;
+        console.log("running end of round functions");
+        cleanUpAndReset();
+        compTurn();
     } else {
         turnDone = false;
         turnTracker = 2;
@@ -219,8 +228,6 @@ function compTurn() {
 }
 
 window.onload = setupGame;
-turnTracker = 2;
 
 // add code to mask all dealers cards but the left most one until you press stick
-// make sure graphics are reset between rounds and games
 // fix undefined bug on playerCurrent
