@@ -10,7 +10,7 @@
     <style>
         #gameholder {
             width: auto;
-            height: 510px;
+            height: auto;
             border: 5px solid black;
         }
         
@@ -27,7 +27,7 @@
         }
         
         #middle {
-            height: 250px;
+            height: auto;
         }
         
         #buttonbar {
@@ -60,8 +60,8 @@
         
         #info {
             display: grid;
-            grid-template-rows: 1fr 1fr;
-            height: 250px;
+            grid-template-rows: 1fr 1fr 1fr;
+            height: auto;
         }
         
         body {
@@ -87,6 +87,7 @@
         <div id=middle>
             <div id=info>
                 <p id=compinfo></p>
+                <p id=gamestate></p>
                 <p id=playerinfo></p>
             </div>
             <p id=score></p>
@@ -104,7 +105,6 @@
         </div>
 
     </div>
-    <button type="button" onclick="setupGame();">Run Setup</button>
 </body>
 
 </html>
