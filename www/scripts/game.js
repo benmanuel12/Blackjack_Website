@@ -244,28 +244,4 @@ function compTurn() {
     }
 }
 
-<<<<<<< HEAD
 window.onload = setupGame;
-=======
-function hideTheCard(card) {
-    hiddenCard = card;
-    let relevantCanvas = document.getElementById("compcard1");
-    let ctx = relevantCanvas.getContext("2d");
-    ctx.font = "30px Comic Sans MS";
-    ctx.textAlign = "center";
-    ctx.fillText("Face down card", relevantCanvas.width / 2, relevantCanvas.height / 2);
-}
-
-function revealTheCard() {
-    let relevantCanvas = document.getElementById("compcard1");
-    let ctx = relevantCanvas.getContext("2d");
-    ctx.clearRect(0, 0, relevantCanvas.width, relevantCanvas.height);
-    ctx.font = "30px Comic Sans MS";
-    ctx.textAlign = "center";
-    ctx.fillText(hiddenCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
-}
-
-window.onload = setupGame;
-
-// fix undefined bug on playerCurrent
->>>>>>> 6f9ac32a90f09900fac34a4723498a7b721fdffb
