@@ -228,6 +228,3 @@ function compTurn() {
 }
 
 window.onload = setupGame;
-
-// add code to mask all dealers cards but the left most one until you press stick
-// fix undefined bug on playerCurrent
