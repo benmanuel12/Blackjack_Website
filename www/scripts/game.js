@@ -9,6 +9,7 @@ let compCurrent = 0;
 let playerCurrent = 0;
 let compTotal = 0;
 let playerTotal = 0;
+let hiddenCard = "";
 
 
 
@@ -60,32 +61,36 @@ function drawCards(thePlayer, noOfCards) {
             testIndex = 0;
             while ((!cardPlaced) && (testIndex < 5)) {
                 if (compHandArray[testIndex] == 0) {
-                    compHandArray[testIndex] = faceValues[randomIndex];
-                    cardPlaced = true;
-                    canvasId = "compcard" + testIndex.toString();
-                    let relevantCanvas = document.getElementById(canvasId);
-                    let ctx = relevantCanvas.getContext("2d");
-                    ctx.font = "30px Comic Sans MS";
-                    ctx.textAlign = "center";
-                    ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+                    if (testIndex == 1) {
+                        hideTheCard(randomCard);
+                    } else {
+                        compHandArray[testIndex] = faceValues[randomIndex];
+                        cardPlaced = true;
+                        canvasId = "compcard" + testIndex.toString();
+                        let relevantCanvas = document.getElementById(canvasId);
+                        let ctx = relevantCanvas.getContext("2d");
+                        ctx.font = "30px Comic Sans MS";
+                        ctx.textAlign = "center";
+                        ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+                    }
+                    testIndex++;
+                } else if (thePlayer == "player") {
+                    cardPlaced = false;
+                    testIndex = 0;
+                    while ((!cardPlaced) && (testIndex < 5)) {
+                        if (playerHandArray[testIndex] == 0) {
+                            playerHandArray[testIndex] = faceValues[randomIndex];
+                            cardPlaced = true;
+                            canvasId = "playercard" + testIndex.toString();
+                            let relevantCanvas = document.getElementById(canvasId);
+                            let ctx = relevantCanvas.getContext("2d");
+                            ctx.font = "30px Comic Sans MS";
+                            ctx.textAlign = "center";
+                            ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+                        }
+                        testIndex++;
+                    }
                 }
-                testIndex++;
-            }
-        } else if (thePlayer == "player") {
-            cardPlaced = false;
-            testIndex = 0;
-            while ((!cardPlaced) && (testIndex < 5)) {
-                if (playerHandArray[testIndex] == 0) {
-                    playerHandArray[testIndex] = faceValues[randomIndex];
-                    cardPlaced = true;
-                    canvasId = "playercard" + testIndex.toString();
-                    let relevantCanvas = document.getElementById(canvasId);
-                    let ctx = relevantCanvas.getContext("2d");
-                    ctx.font = "30px Comic Sans MS";
-                    ctx.textAlign = "center";
-                    ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
-                }
-                testIndex++;
             }
         }
     }
@@ -102,17 +107,21 @@ function twist() {
 
 function stick() {
     if (turnTracker == 2) {
-        console.log("Pressed stick");
+        updateInfo("gamestate", "You chose to stick");
+        console.log("You chose to stick");
         if (checkBust("player")) {
             updateInfo("playerinfo", "Bust");
             compTotal += compCurrent;
             updateBoard(compTotal, playerTotal);
-            console.log("You have gone bust. The computer wins");
+            updateInfo("gamestate", "You have gone bust. The computer wins this round");
+            console.log("You have gone bust. The computer wins this round");
         } else {
+            revealTheCard();
             compareHands();
         }
         turnTracker = 0;
-        console.log("running end of round functions");
+        updateInfo("gamestate", "End of round")
+        console.log("End of round");
         cleanUpAndReset();
         compTurn();
 
@@ -181,7 +190,8 @@ function cleanUpAndReset() {
     playerCurrent = calculateScore(playerHandArray);
     updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent)
-    console.log("Starting new game");
+    updateInfo("gameState", "Starting new round");
+    console.log("Starting new round");
 
 }
 
@@ -190,6 +200,8 @@ function updateInfo(element, data) {
         document.getElementById(element).innerHTML = "Computer's hand: " + data;
     } else if (element == "playerinfo") {
         document.getElementById(element).innerHTML = "Player's hand: " + data;
+    } else if (element == "gamestate") {
+        document.getElementById(element).innerHTML = data;
     }
 }
 
@@ -198,6 +210,7 @@ function updateBoard(val1, val2) {
 }
 
 function compDraw() {
+    updateInfo("gamestate", "I draw");
     console.log("I draw");
     drawCards("comp", 1);
     compCurrent = calculateScore(compHandArray);
@@ -206,7 +219,8 @@ function compDraw() {
 
 function compTurn() {
     turnTracker = 1;
-    console.log("Starting computer turn");
+    updateInfo("gamestate", "Starting computer's turn");
+    console.log("Starting computer's turn");
     while (compCurrent <= 16) {
         //setTimeout(compDraw, 1000);
         compDraw();
@@ -215,16 +229,43 @@ function compTurn() {
         updateInfo("compinfo", "Bust");
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
+        updateInfo("gamestate", "The computer has gone bust. You win");
         console.log("The computer has gone bust. You win");
         turnTracker = 0;
-        console.log("running end of round functions");
+        updateInfo("gameState", "Starting new round");
+        console.log("Starting new round");
         cleanUpAndReset();
         compTurn();
     } else {
         turnDone = false;
         turnTracker = 2;
-        console.log("Starting player turn");
+        updateInfo("gamestate", "Starting your turn")
+        console.log("Starting your turn");
     }
 }
 
+<<<<<<< HEAD
 window.onload = setupGame;
+=======
+function hideTheCard(card) {
+    hiddenCard = card;
+    let relevantCanvas = document.getElementById("compcard1");
+    let ctx = relevantCanvas.getContext("2d");
+    ctx.font = "30px Comic Sans MS";
+    ctx.textAlign = "center";
+    ctx.fillText("Face down card", relevantCanvas.width / 2, relevantCanvas.height / 2);
+}
+
+function revealTheCard() {
+    let relevantCanvas = document.getElementById("compcard1");
+    let ctx = relevantCanvas.getContext("2d");
+    ctx.clearRect(0, 0, relevantCanvas.width, relevantCanvas.height);
+    ctx.font = "30px Comic Sans MS";
+    ctx.textAlign = "center";
+    ctx.fillText(hiddenCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+}
+
+window.onload = setupGame;
+
+// fix undefined bug on playerCurrent
+>>>>>>> 6f9ac32a90f09900fac34a4723498a7b721fdffb
