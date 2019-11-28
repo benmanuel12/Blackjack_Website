@@ -1,0 +1,9 @@
+fix undefined bug
+fix loading bug
+re-add info to gui
+add gui to main project
+add scoring code to game
+add validation in html and js to login code
+use session storage to retrieve scores
+make ranking table
+write report
