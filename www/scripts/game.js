@@ -66,12 +66,7 @@ function drawCards(thePlayer, noOfCards) {
                 if (compHandArray[testIndex] == 0) {
                     compHandArray[testIndex] = faceValues[randomIndex];
                     cardPlaced = true;
-                    canvasId = "compcard" + testIndex.toString();
-                    let relevantCanvas = document.getElementById(canvasId);
-                    let ctx = relevantCanvas.getContext("2d");
-                    ctx.font = "30px Comic Sans MS";
-                    ctx.textAlign = "center";
-                    ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+                    changeHandSlot(compHandArray, testIndex, randomCard);
                 }
                 testIndex++;
             }
@@ -82,12 +77,7 @@ function drawCards(thePlayer, noOfCards) {
                 if (playerHandArray[testIndex] == 0) {
                     playerHandArray[testIndex] = faceValues[randomIndex];
                     cardPlaced = true;
-                    canvasId = "playercard" + testIndex.toString();
-                    let relevantCanvas = document.getElementById(canvasId);
-                    let ctx = relevantCanvas.getContext("2d");
-                    ctx.font = "30px Comic Sans MS";
-                    ctx.textAlign = "center";
-                    ctx.fillText(randomCard, relevantCanvas.width / 2, relevantCanvas.height / 2);
+                    changeHandSlot(playerHandArray, testIndex, randomCard);
                 }
                 testIndex++;
             }
@@ -184,6 +174,21 @@ function cleanUpAndReset() {
     updateInfo("gamestate", "Starting new game");
     console.log("Starting new game");
 
+}
+
+function changeHandSlot(hand, index, value) {
+    if (hand == compHandArray) {
+        canvasId = "compcard" + index.toString();
+    } else if (hand == playerHandArray) {
+        canvasId = "playercard" + index.toString();
+    } else {
+        console.log("valid hand not given");
+    }
+    let targetCanvas = document.getElementById(canvasId);
+    let ctx = targetCanvas.getContext("2d");
+    ctx.font = "30px Comic Sans MS";
+    ctx.textAlign = "center";
+    ctx.fillText(value, targetCanvas.width / 2, targetCanvas.height / 2);
 }
 
 function updateInfo(element, data) {
