@@ -27,7 +27,7 @@
         }
         
         #middle {
-            height: 250px;
+            height: auto;
         }
         
         #buttonbar {
@@ -61,7 +61,7 @@
         #info {
             display: grid;
             grid-template-rows: 1fr 1fr;
-            height: 250px;
+            height: auto;
         }
         
         body {
@@ -87,7 +87,9 @@
         <div id=middle>
             <div id=info>
                 <p id=compinfo></p>
-                <p id=playerinfo></p>
+                <p id=gamestate>something</p>
+                <p id=playerinfo>
+                    </>
             </div>
             <p id=score></p>
         </div>
@@ -104,7 +106,6 @@
         </div>
 
     </div>
-    <button type="button" onclick="setupGame();">Run Setup</button>
 </body>
 
 </html>

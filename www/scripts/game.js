@@ -1,7 +1,7 @@
 let compHandArray = [0, 0, 0, 0, 0];
 let playerHandArray = [0, 0, 0, 0, 0];
 let turnTracker = 0; //0 = between turns, 1 = computer's turn, 2 = player's turn
-let deck = ["1", "2", "3", "4", "5"];
+let deck = [];
 let suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
 let faceNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
 let faceValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
