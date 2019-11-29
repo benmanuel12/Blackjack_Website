@@ -28,16 +28,20 @@ function setupGame() {
     // have each player draw 2 cards
     drawCards("comp", 2);
     drawCards("player", 2);
+    console.log("drawn cards");
 
     compCurrent = calculateScore(compHandArray);
     playerCurrent = calculateScore(playerHandArray);
+    console.log("calculated scores");
 
     //Reset the cumulative scoreboard
     updateBoard(0, 0);
+    console.log("updated board");
 
     //Reset the tickers
     updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent);
+    console.log("updated info");
 
     let answer = confirm("Confirm to start the game");
     if (answer) {
@@ -102,17 +106,17 @@ function twist() {
 
 function stick() {
     if (turnTracker == 2) {
-        console.log("Pressed stick");
+        updateInfo("gamestate", "Pressed stick");
         if (checkBust("player")) {
             updateInfo("playerinfo", "Bust");
             compTotal += compCurrent;
             updateBoard(compTotal, playerTotal);
-            console.log("You have gone bust. The computer wins");
+            updateInfo("gamestate", "You have gone bust. The computer wins");
         } else {
             compareHands();
         }
         turnTracker = 0;
-        console.log("running end of round functions");
+        updateInfo("gamestate", "running end of round functions");
         cleanUpAndReset();
         compTurn();
 
@@ -181,7 +185,7 @@ function cleanUpAndReset() {
     playerCurrent = calculateScore(playerHandArray);
     updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent)
-    console.log("Starting new game");
+    updateInfo("gamestate", "Starting new game");
 
 }
 
@@ -190,6 +194,8 @@ function updateInfo(element, data) {
         document.getElementById(element).innerHTML = "Computer's hand: " + data;
     } else if (element == "playerinfo") {
         document.getElementById(element).innerHTML = "Player's hand: " + data;
+    } else if (element == "gamestate") {
+        document.getElementById(element).innerHTML = data;
     }
 }
 
@@ -198,7 +204,7 @@ function updateBoard(val1, val2) {
 }
 
 function compDraw() {
-    console.log("I draw");
+    updateInfo("gamestate", "Computer draws");
     drawCards("comp", 1);
     compCurrent = calculateScore(compHandArray);
     updateInfo("compinfo", compCurrent);
@@ -206,7 +212,7 @@ function compDraw() {
 
 function compTurn() {
     turnTracker = 1;
-    console.log("Starting computer turn");
+    updateInfo("gamestate", "Starting computer turn");
     while (compCurrent <= 16) {
         //setTimeout(compDraw, 1000);
         compDraw();
@@ -215,15 +221,15 @@ function compTurn() {
         updateInfo("compinfo", "Bust");
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
-        console.log("The computer has gone bust. You win");
+        updateInfo("gamestate", "The computer has gone bust. You win");
         turnTracker = 0;
-        console.log("running end of round functions");
+        updateInfo("gamestate", "running end of round functions");
         cleanUpAndReset();
         compTurn();
     } else {
         turnDone = false;
         turnTracker = 2;
-        console.log("Starting player turn");
+        updateInfo("gamestate", "Starting player turn");
     }
 }
 

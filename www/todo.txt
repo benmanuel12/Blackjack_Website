@@ -1,5 +1,6 @@
-re-add html
-re-add log messages
+re-add html /
+re-add log messages /
+fix the rules on double ace scoring
 re-code adding card to screen as function
 code up hiding card
 code up revealing the card
