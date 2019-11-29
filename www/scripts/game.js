@@ -141,11 +141,7 @@ function calculateScore(hand) {
     }
     if ((sum > 21) && (hand.includes(11))) {
         //that hand is possibly Bust
-        for (i = 0; i < hand.length; i++) {
-            if (hand[i] == 11) {
-                hand[i] = 1;
-            }
-        }
+        hand[hand.indexOf(11)] = 1;
         calculateScore(hand);
     } else {
         return sum;
@@ -186,6 +182,7 @@ function cleanUpAndReset() {
     updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent)
     updateInfo("gamestate", "Starting new game");
+    console.log("Starting new game");
 
 }
 
@@ -205,6 +202,7 @@ function updateBoard(val1, val2) {
 
 function compDraw() {
     updateInfo("gamestate", "Computer draws");
+    console.log("Computer draws");
     drawCards("comp", 1);
     compCurrent = calculateScore(compHandArray);
     updateInfo("compinfo", compCurrent);
@@ -213,6 +211,7 @@ function compDraw() {
 function compTurn() {
     turnTracker = 1;
     updateInfo("gamestate", "Starting computer turn");
+    console.log("Starting computer turn");
     while (compCurrent <= 16) {
         //setTimeout(compDraw, 1000);
         compDraw();
@@ -222,14 +221,17 @@ function compTurn() {
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
         updateInfo("gamestate", "The computer has gone bust. You win");
+        console.log("The computer has gone bust. You win");
         turnTracker = 0;
-        updateInfo("gamestate", "running end of round functions");
+        updateInfo("gamestate", "Running end of round functions");
+        console.log("Running end of round functions");
         cleanUpAndReset();
         compTurn();
     } else {
         turnDone = false;
         turnTracker = 2;
         updateInfo("gamestate", "Starting player turn");
+        console.log("Starting player turn");
     }
 }
 

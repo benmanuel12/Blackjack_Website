@@ -1,6 +1,5 @@
 re-add html /
 re-add log messages /
-fix the rules on double ace scoring
 re-code adding card to screen as function
 code up hiding card
 code up revealing the card
@@ -11,3 +10,5 @@ add code to track active user with session storage
 add code to add score to active users score
 code up ranking table
 write report
+
+fix the rules on double ace scoring
