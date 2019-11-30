@@ -9,6 +9,7 @@ let compCurrent = 0;
 let playerCurrent = 0;
 let compTotal = 0;
 let playerTotal = 0;
+let hiddenCard = '';
 
 
 
@@ -65,8 +66,13 @@ function drawCards(thePlayer, noOfCards) {
             while ((!cardPlaced) && (testIndex < 5)) {
                 if (compHandArray[testIndex] == 0) {
                     compHandArray[testIndex] = faceValues[randomIndex];
+                    if (testIndex == 1) {
+                        hiddenCard = randomCard;
+                        changeHandSlot(compHandArray, testIndex, "Facedown card");
+                    } else {
+                        changeHandSlot(compHandArray, testIndex, randomCard);
+                    }
                     cardPlaced = true;
-                    changeHandSlot(compHandArray, testIndex, randomCard);
                 }
                 testIndex++;
             }
@@ -97,6 +103,7 @@ function twist() {
 function stick() {
     if (turnTracker == 2) {
         updateInfo("gamestate", "Pressed stick");
+        revealFacedowns();
         if (checkBust("player")) {
             updateInfo("playerinfo", "Bust");
             compTotal += compCurrent;
@@ -115,10 +122,10 @@ function stick() {
 
 function compareHands() {
     if (compCurrent >= playerCurrent) {
-        alert("You lost");
+        updateInfo("gamestate", "You lost");
         compTotal += compCurrent;
     } else {
-        alert("You won");
+        updateInfo("gamestate", "You won");
         playerTotal += playerCurrent;
     }
     updateBoard(compTotal, playerTotal);
@@ -238,6 +245,10 @@ function compTurn() {
         updateInfo("gamestate", "Starting player turn");
         console.log("Starting player turn");
     }
+}
+
+function revealFacedowns() {
+    changeHandSlot(compHandArray, 1, hiddenCard);
 }
 
 window.onload = setupGame;

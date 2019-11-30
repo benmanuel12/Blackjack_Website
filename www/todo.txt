@@ -1,8 +1,8 @@
 re-add html /
 re-add log messages /
 re-code adding card to screen as function /
-code up hiding card
-code up revealing the card
+code up hiding card /
+code up revealing the card /
 remove the html tracking computer's score
 add html validation
 add js validation
