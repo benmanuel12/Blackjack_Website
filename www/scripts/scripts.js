@@ -7,46 +7,64 @@ function signup() {
     let newEmail = document.getElementById('email').value;
     let newPhone = document.getElementById('number').value;
 
-    if (newPassword == newRepeatPassword) {
-        if (newPhone.length == 11) {
-            if (!isNaN(newPhone)) {
-                //if (newEmail ==/[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]+@[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]+/){
-                let isUnique = true;
-                if (localStorage.length != 0) {
-                    for (i = 0; i < localStorage.length; i++) {
-                        current = localStorage.getItem(i);
-                        currentString = JSON.parse(current);
-                        if (currentString.username == newUsername) {
-                            isUnique = false;
-                        }
-                    }
-                }
+    let myRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-                if (isUnique == true) {
-                    let newAccount = {
-                        username: newUsername,
-                        password: newPassword,
-                        email: newEmail,
-                        number: newPhone,
-                        score: 0
-                    };
-                    accounts.push(newAccount);
-                } else {
-                    alert("Username already taken");
-                }
-            } else {
-                alert("Please check your phone number");
-            }
-        } else {
-            alert("Phone number too short");
-        }
+    let passwordsMatch = false;
+    let phonecorrectLength = false;
+    let phonecorrectFormat = false;
+    let passwordcorrectFormat = false;
+    let usernameUnique = true;
+
+    if (newPassword == newRepeatPassword) {
+        passwordsMatch = true;
     } else {
         alert("Passwords don't match");
     }
-    newJSON = JSON.stringify(accounts[accounts.length - 1]);
-    localStorage.setItem(accounts.length - 1, newJSON);
-    alert("Sign up successful");
 
+    if (newPhone.length == 11) {
+        phonecorrectLength = true;
+    } else {
+        alert("Phone number is either too short or too long");
+    }
+
+    if (!isNaN(newPhone)) {
+        phonecorrectFormat = true;
+    } else {
+        alert("Please check your phone number");
+    }
+
+    if (myRegex.test(newPassword)) {
+        passwordcorrectFormat = true;
+    } else {
+        alert("Password is too weak");
+    }
+
+    if (localStorage.length != 0) {
+        for (i = 0; i < localStorage.length; i++) {
+            current = localStorage.getItem(i);
+            currentString = JSON.parse(current);
+            if (currentString.username == newUsername) {
+                usernameUnique = false;
+            }
+        }
+        if (!usernameUnique) {
+            alert("Username already taken");
+        }
+    }
+
+    if (passwordsMatch && phonecorrectLength && phonecorrectFormat && passwordcorrectFormat && usernameUnique) {
+        let newAccount = {
+            username: newUsername,
+            password: newPassword,
+            email: newEmail,
+            number: newPhone,
+            score: 0
+        };
+        accounts.push(newAccount);
+        newJSON = JSON.stringify(accounts[accounts.length - 1]);
+        localStorage.setItem(accounts.length - 1, newJSON);
+        alert("Sign up successful");
+    }
 }
 
 function login() {
