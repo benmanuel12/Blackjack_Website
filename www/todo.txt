@@ -6,7 +6,7 @@ code up revealing the card /
 remove the html tracking computer's score /
 add html validation /
 add js validation /
-add code to track active user with session storage
+add code to track active user with session storage /
 add code to add score to active users score
 code up ranking table
 move game to correct page

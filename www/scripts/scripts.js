@@ -74,16 +74,25 @@ function login() {
     // fetch the entry from local storage with that username and password
     // if they match, alert user that they successfully logged in
     let success = false;
+    let userIndex = -1;
     for (i = 0; i < localStorage.length; i++) {
         current = localStorage.getItem(i);
-        console.log(current);
         currentString = JSON.parse(current);
         if ((currentString.username == givenUsername) && (currentString.password == givenPassword)) {
-            alert("You are logged in");
             success = true;
+            userIndex = i;
         }
+    }
+    if (success == true) {
+        sessionStorage.setItem('activeUserStorageIndex', i)
+        alert("You are logged in");
     }
     if (success == false) {
         alert("No account found");
     }
+}
+
+function adminWipeStorage() {
+    localStorage.clear();
+    sessionStorage.clear();
 }
