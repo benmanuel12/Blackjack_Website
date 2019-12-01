@@ -7,9 +7,11 @@ remove the html tracking computer's score /
 add html validation /
 add js validation /
 add code to track active user with session storage /
-add code to add score to active users score
-code up ranking table
+add code to add score to active users score /
+code up ranking table populator
 move game to correct page
 write report
 
 fix the rules on double ace scoring
+comment code
+try to reinstall xampp
