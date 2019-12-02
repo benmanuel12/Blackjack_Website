@@ -20,53 +20,53 @@ outputNavBar();
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name0">playerName</td>
+                        <td id="score0">playerScore</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name1">playerName</td>
+                        <td id="score1">playerScore</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name2">playerName</td>
+                        <td id="score2">playerScore</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name3">playerName</td>
+                        <td id="score3">playerScore</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name4">playerName</td>
+                        <td id="score4">playerScore</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name5">playerName</td>
+                        <td id="score5">playerScore</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name6">playerName</td>
+                        <td id="score6">playerScore</td>
                     </tr>
                     <tr>
                         <td>8</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name7">playerName</td>
+                        <td id="score7">playerScore</td>
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name8">playerName</td>
+                        <td id="score8">playerScore</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td>playerName</td>
-                        <td>playerScore</td>
+                        <td id="name9">playerName</td>
+                        <td id="score9">playerScore</td>
                     </tr>
                 </table>
             </div>
