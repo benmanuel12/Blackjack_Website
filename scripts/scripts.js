@@ -135,7 +135,7 @@ function populateRanking() {
 }
 
 function getTotalUserCount() {
-    document.getElementById("totalcounter").innerHTML = localStorage.length() + " accounts made";
+    document.getElementById("totalcounter").innerHTML = localStorage.length + " accounts made";
 }
 
 window.onload = populateRanking;

@@ -1,6 +1,0 @@
-move game to correct page
-write report
-
-fix the rules on double ace scoring
-comment code
-try to reinstall xampp

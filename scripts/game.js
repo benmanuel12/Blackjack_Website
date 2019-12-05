@@ -40,16 +40,10 @@ function setupGame() {
     console.log("updated board");
 
     //Reset the tickers
-    //updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent);
     console.log("updated info");
 
-    let answer = confirm("Confirm to start the game");
-    if (answer) {
-        setTimeout(compTurn, 2000);
-    }
-
-
+    setTimeout(compTurn, 2000);
 }
 
 function drawCards(thePlayer, noOfCards) {
@@ -177,7 +171,6 @@ function cleanUpAndReset() {
     drawCards("player", 2);
     compCurrent = calculateScore(compHandArray);
     playerCurrent = calculateScore(playerHandArray);
-    //updateInfo("compinfo", compCurrent);
     updateInfo("playerinfo", playerCurrent)
     updateInfo("gamestate", "Starting new game");
     console.log("Starting new game");
@@ -204,7 +197,7 @@ function changeHandSlot(hand, index, value) {
 
 function updateInfo(element, data) {
     if (element == "compinfo") {
-        //document.getElementById(element).innerHTML = "Computer's hand: " + data;
+        document.getElementById(element).innerHTML = "Computer's hand: " + data;
     } else if (element == "playerinfo") {
         document.getElementById(element).innerHTML = "Player's hand: " + data;
     } else if (element == "gamestate") {
@@ -221,7 +214,6 @@ function compDraw() {
     console.log("Computer draws");
     drawCards("comp", 1);
     compCurrent = calculateScore(compHandArray);
-    //updateInfo("compinfo", compCurrent);
 }
 
 function compTurn() {
@@ -229,11 +221,9 @@ function compTurn() {
     updateInfo("gamestate", "Starting computer turn");
     console.log("Starting computer turn");
     while (compCurrent <= 16) {
-        //setTimeout(compDraw, 1000);
         compDraw();
     }
     if (checkBust("comp")) {
-        //updateInfo("compinfo", "Bust");
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
         updateInfo("gamestate", "The computer has gone bust. You win");
