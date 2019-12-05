@@ -21,7 +21,7 @@ function setupGame() {
     let index = 0
     for (i = 0; i < suits.length; i++) {
         for (j = 0; j < faceNames.length; j++) {
-            deck[index] = faceNames[j] + " of " + suits[i];
+            deck[index] = faceNames[j] + " of " + suits[i] + ".jpg";
             index++;
         }
     }
@@ -194,9 +194,12 @@ function changeHandSlot(hand, index, value) {
     }
     let targetCanvas = document.getElementById(canvasId);
     let ctx = targetCanvas.getContext("2d");
-    ctx.font = "30px Comic Sans MS";
-    ctx.textAlign = "center";
-    ctx.fillText(value, targetCanvas.width / 2, targetCanvas.height / 2);
+    let targetImage = new Image();
+    targetImage.onload = function() {
+        ctx.drawImage(targetImage, 0, 0, targetImage.width, targetImage.height, 0, 0, targetCanvas.width, targetCanvas.height);
+    };
+    targetImage.src = "images/Ace of Spades.jpg";
+
 }
 
 function updateInfo(element, data) {
