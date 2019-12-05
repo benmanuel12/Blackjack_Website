@@ -133,3 +133,10 @@ function populateRanking() {
         document.getElementById("score" + i.asString()).innerHTML = currentScore;
     }
 }
+
+function getTotalUserCount() {
+    document.getElementById("totalcounter").innerHTML = localStorage.length() + " accounts made";
+}
+
+window.onload = populateRanking;
+window.onload = getTotalUserCount;
