@@ -1,7 +1,7 @@
 <?php
 // Function to output the head and heading
-function outputHeading ($title) {
-echo <<<HEADING
+function outputHead ($title) {
+echo <<<HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +11,10 @@ echo <<<HEADING
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>$title</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    HEAD;
+}
+function outputHeading () {
+echo <<<HEADING
 </head>
 
 <body>

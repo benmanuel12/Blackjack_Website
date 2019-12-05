@@ -4,7 +4,8 @@
 //Import the shared functions and output the head, heading, logo and navigation bar
 include('common.php');
 
-outputHeading('Home');
+outputHead('Home');
+outputHeading();
 outputNavBar();
 ?>
 
