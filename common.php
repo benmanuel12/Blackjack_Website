@@ -1,4 +1,4 @@
-<?php
+<?php   
 // Function to output the head and heading
 function outputHead ($title) {
 echo <<<HEAD
@@ -11,10 +11,6 @@ echo <<<HEAD
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>$title</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-    HEAD;
-}
-function outputHeading () {
-echo <<<HEADING
 </head>
 
 <body>
@@ -30,7 +26,7 @@ echo <<<HEADING
 
         </div>
     </div>
-HEADING;
+HEAD;
 }
 
 // Function to output the navigation bar
@@ -57,8 +53,6 @@ function outputFooter () {
     Benjamin Manuel 2019
     </div>
     </body>
-    <script src="/scripts/scripts.js"></script> 
-    </html>
 FOOTER;
 }
 ?>

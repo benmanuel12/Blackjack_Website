@@ -191,7 +191,7 @@ function changeHandSlot(hand, index, value) {
     targetImage.onload = function() {
         ctx.drawImage(targetImage, 0, 0, targetImage.width, targetImage.height, 0, 0, targetCanvas.width, targetCanvas.height);
     };
-    targetImage.src = "images/Ace of Spades.jpg";
+    targetImage.src = "images/" + randomCard;
 
 }
 

@@ -5,7 +5,6 @@
 include('common.php');
 
 outputHead('Home');
-outputHeading();
 outputNavBar();
 ?>
 
@@ -84,3 +83,5 @@ outputNavBar();
 //Output the footer and closing HTML tags
 outputFooter();
 ?>
+<script src="scripts/populaterankings.js"></script>
+</html>

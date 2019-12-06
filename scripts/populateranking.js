@@ -35,9 +35,9 @@ function populateRanking() {
     }
 }
 
-function getTotalUserCount() {
-    document.getElementById("totalcounter").innerHTML = localStorage.length + " accounts made";
-}
+//function getTotalUserCount() {
+//    document.getElementById("totalcounter").innerHTML = localStorage.length + " accounts made";
+//}
 
 window.onload = populateRanking;
 window.onload = getTotalUserCount;

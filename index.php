@@ -5,7 +5,6 @@
 include('common.php');
 
 outputHead('Home');
-outputHeading();
 outputNavBar();
 ?>
 
@@ -35,3 +34,4 @@ outputNavBar();
 //Output the footer and closing HTML tags
 outputFooter();
 ?>
+</html>
