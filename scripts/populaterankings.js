@@ -1,4 +1,4 @@
-function populateRanking() {
+function populateRankings() {
     let allUsernames = [];
     let allScores = [];
     let top10 = [];
@@ -6,8 +6,10 @@ function populateRanking() {
         let current = localStorage.getItem(i);
         let currentObject = JSON.parse(current);
         // read all usernames and scores into two arrays
-        allUsernames.push(currentObject.username, allScores.push(currentObject.score));
+        allUsernames.push(currentObject.username)
+        allScores.push(currentObject.score);
     }
+
     // find the highest score and respective username
     for (let i = 0; i < 10; i++) {
         let best = 0;
@@ -30,14 +32,14 @@ function populateRanking() {
         let currentScore = top10[i][1];
         let nameID = "";
         let scoreID = "";
-        document.getElementById("name" + i.asString()).innerHTML = currentUsername;
-        document.getElementById("score" + i.asString()).innerHTML = currentScore;
+        document.getElementById("name" + i.toString()).innerHTML = currentUsername;
+        document.getElementById("score" + i.toString()).innerHTML = currentScore;
     }
 }
 
-//function getTotalUserCount() {
-//    document.getElementById("totalcounter").innerHTML = localStorage.length + " accounts made";
-//}
+function getTotalUserCount() {
+    document.getElementById("totalcounter").innerHTML = localStorage.length.toString() + " accounts made";
+}
 
-window.onload = populateRanking;
+window.onload = populateRankings;
 window.onload = getTotalUserCount;
