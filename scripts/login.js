@@ -24,3 +24,8 @@ function login() {
         alert("No account found");
     }
 }
+
+function logout() {
+    sessionStorage.removeItem('activeUserStorageIndex');
+    alert("You have logged out");
+}

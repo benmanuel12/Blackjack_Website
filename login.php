@@ -15,8 +15,14 @@ outputNavBar();
         Username: <br>
         <input id=username type="text" name="username"><br> <br> Password: <br>
         <input id=password type="password" name="password"><br> <br>
-        <button type="button" onclick="login()">Log In</button>
+        <button type="button" onclick="login()">Log In</button> <br>
+        <p>The button below will log you out of the site.
+            Pressing it while not logged in will have no effect.
+            Closing the tab will also log you out but this is more obvious.
+        </p> <br>
+        <button type="button" onclick="logout()">Log Out</button>
 </form>
+
     <div id=sidebar>
         <div id=button>
             Sign in instead?
