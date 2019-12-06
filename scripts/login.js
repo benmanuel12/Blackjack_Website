@@ -1,4 +1,5 @@
 function login() {
+    document.getElementById("logininfo").innerHTML = "hi";
     let givenUsername = document.getElementById('username').value;
     let givenPassword = document.getElementById('password').value;
     // check for entry in local storage
@@ -15,10 +16,11 @@ function login() {
         }
     }
     if (success == true) {
-        sessionStorage.setItem('activeUserStorageIndex', i)
+        sessionStorage.setItem('activeUserStorageIndex', userIndex);
         alert("You are logged in");
     }
     if (success == false) {
+        sessionStorage.removeItem('activeUserStorageIndex');
         alert("No account found");
     }
 }

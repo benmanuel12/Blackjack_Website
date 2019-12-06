@@ -246,14 +246,14 @@ function revealFacedowns() {
 }
 
 function updateScoreRecord() {
-    currentUsersData = sessionStorage.getItem("activeUserStorageIndex");
-    if (currentUsersData == null) {
+    currentUsersIndex = sessionStorage.getItem("activeUserStorageIndex");
+    if (currentUsersIndex == null) {
         console.log("User is not logged in");
     } else {
-        currentUsersData_as_Object = JSON.parse(currentUsersData);
+        currentUsersData_as_Object = JSON.parse(localStorage.getItem(currentUsersIndex));
         currentUsersData_as_Object.score = currentUsersData_as_Object.score + playerCurrent;
         currentUsersData_as_String = JSON.stringify(currentUsersData_as_Object)
-        localStorage.setItem("activeUserStorageIndex", currentUsersData_as_String);
+        localStorage.setItem(currentUsersIndex, currentUsersData_as_String);
     }
 }
 

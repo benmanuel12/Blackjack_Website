@@ -13,12 +13,12 @@ outputNavBar();
     <form>
         Username: <br>
         <input id=username type="text" name="username"><br> <br> Password: <br>
-        <input id=password type="password name="password"><br> <br> Repeat Password: <br>
+        <input id=password type="password" name="password"><br> <br> Repeat Password: <br>
         <input id=repeatpassword type="password" name="password"><br> <br> Email Address: <br>
         <input id=email type="email" name="email"><br> <br> Phone Number <br>
         <input id=number type="tel" name="number"><br>
         <button type="button" onclick="signup()">Sign Up</button>
-</forn>
+</form>
     <div id=sidebar>
         <div id=button>
             Log in instead?

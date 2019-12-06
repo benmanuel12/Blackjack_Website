@@ -1,5 +1,3 @@
-let accounts = [];
-
 function signup() {
     let newUsername = document.getElementById('username').value;
     let newPassword = document.getElementById('password').value;
@@ -43,12 +41,11 @@ function signup() {
         for (i = 0; i < localStorage.length; i++) {
             current = localStorage.getItem(i);
             currentString = JSON.parse(current);
+            console.log(currentString);
             if (currentString.username == newUsername) {
                 usernameUnique = false;
+                alert("Username already taken");
             }
-        }
-        if (!usernameUnique) {
-            alert("Username already taken");
         }
     }
 
@@ -60,9 +57,12 @@ function signup() {
             number: newPhone,
             score: 0
         };
-        accounts.push(newAccount);
-        newJSON = JSON.stringify(accounts[accounts.length - 1]);
-        localStorage.setItem(accounts.length - 1, newJSON);
+        newJSON = JSON.stringify(newAccount);
+        let newKey = localStorage.length;
+        console.log(newKey);
+        localStorage.setItem(newKey, newJSON);
         alert("Sign up successful");
+    } else {
+        alert("Sign up failed");
     }
 }
