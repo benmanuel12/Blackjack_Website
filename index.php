@@ -10,15 +10,8 @@ outputNavBar();
 
 <!--Images of game-->
 <div id=imagegrid>
-    <div id=image1>
-        Image 1
-    </div>
-    <div id=image2>
-        Image 2
-    </div>
-    <div id=image3>
-        Image 3
-    </div>
+    <div><img src="images/home_pic1.png" alt="Image 1" height=auto width=450px></div>
+    <div><img src="images/home_pic2.png" alt="Image 2" height=auto width=450px></div>
 </div>
 
 <!--Info div-->

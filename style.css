@@ -69,18 +69,13 @@ body {
 
 #imagegrid {
     display: grid;
-    grid-template-columns: minmax(auto, 1fr) minmax(auto, 1fr) minmax(auto, 1fr);
+    grid-template-columns: minmax(auto, 1fr) minmax(auto, 1fr);
     margin: 20px;
 }
 
 #imagegrid>div {
-    width: auto;
-    height: 240px;
-    border: 2px solid black;
-    margin: 5px;
-    background-color: grey;
     text-align: center;
-    line-height: 240px;
+    margin: 5px;
 }
 
 #info {
@@ -89,8 +84,8 @@ body {
     border: 5px solid #428af5;
     border-radius: 5px;
     text-align: center;
-    padding: 15px;
     margin: 5px;
+    padding: 15px;
 }
 
 
@@ -161,7 +156,7 @@ button {
     grid-template-columns: 2fr 1fr;
 }
 
-#info {
+#gameinfo {
     display: grid;
     grid-template-rows: 1fr 1fr;
     height: auto;

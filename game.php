@@ -18,7 +18,7 @@ outputNavBar();
         <canvas id=compcard4></canvas>
     </div>
     <div id=middle>
-        <div id=info>
+        <div id=gameinfo>
             <p id=gamestate>waiting for start</p>
             <p id=playerinfo></p>
         </div>
