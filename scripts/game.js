@@ -12,9 +12,8 @@ let playerTotal = 0;
 let hiddenCard = '';
 
 
-
+// Sets up the game for the first round in a game
 function setupGame() {
-
     turnTracker = 0;
 
     // assemble deck
@@ -46,6 +45,7 @@ function setupGame() {
     setTimeout(compTurn, 2000);
 }
 
+// Invoked to draw cards for either player
 function drawCards(thePlayer, noOfCards) {
     for (i = 0; i < noOfCards; i++) {
         randomCard = "";
@@ -62,7 +62,8 @@ function drawCards(thePlayer, noOfCards) {
                     compHandArray[testIndex] = faceValues[randomIndex];
                     if (testIndex == 1) {
                         hiddenCard = randomCard;
-                        changeHandSlot(compHandArray, testIndex, "Facedown card");
+                        changeHandSlot(compHandArray, testIndex, "blue_back.jpg");
+                        console.log("facedown");
                     } else {
                         changeHandSlot(compHandArray, testIndex, randomCard);
                     }
@@ -85,6 +86,7 @@ function drawCards(thePlayer, noOfCards) {
     }
 }
 
+// Invoked by button of same name on webpage to allow player to draw cards at their own pace
 function twist() {
     if (turnTracker == 2) {
         drawCards("player", 1);
@@ -93,17 +95,17 @@ function twist() {
     }
 
 }
-
+// Invoked by button of same name on webpage to allow player to end turn at their own pace
 function stick() {
     if (turnTracker == 2) {
         updateInfo("gamestate", "Pressed stick");
-        revealFacedowns();
         if (checkBust("player")) {
             updateInfo("playerinfo", "Bust");
             compTotal += compCurrent;
             updateBoard(compTotal, playerTotal);
             updateInfo("gamestate", "You have gone bust. The computer wins");
         } else {
+            revealFacedowns();
             compareHands();
         }
         turnTracker = 0;
@@ -111,10 +113,10 @@ function stick() {
         updateScoreRecord();
         cleanUpAndReset();
         compTurn();
-
     }
 }
 
+// compares players hands, declares who won the round and updates scores appropriately
 function compareHands() {
     if (compCurrent >= playerCurrent) {
         updateInfo("gamestate", "You lost");
@@ -126,6 +128,7 @@ function compareHands() {
     updateBoard(compTotal, playerTotal);
 }
 
+// takes a hand as argument and returns the total score of that hand
 function calculateScore(hand) {
     sum = 0
     for (i = 0; i < hand.length; i++) {
@@ -141,6 +144,7 @@ function calculateScore(hand) {
 
 }
 
+// checks if a certain player has a hand score of over 21
 function checkBust(who) {
     if (who == "player") {
         return calculateScore(playerHandArray) > 21;
@@ -149,6 +153,8 @@ function checkBust(who) {
     }
 }
 
+// Resets the game between round.
+// This is different than the game setup function as that one has no need to clear the canvasses and this one has no need to reset the overall scoreboard
 function cleanUpAndReset() {
     // clear hands
     compHandArray = [0, 0, 0, 0, 0]
@@ -177,6 +183,7 @@ function cleanUpAndReset() {
 
 }
 
+// changes any card in any hand to any other card
 function changeHandSlot(hand, index, value) {
     if (hand == compHandArray) {
         canvasId = "compcard" + index.toString();
@@ -191,10 +198,11 @@ function changeHandSlot(hand, index, value) {
     targetImage.onload = function() {
         ctx.drawImage(targetImage, 0, 0, targetImage.width, targetImage.height, 0, 0, targetCanvas.width, targetCanvas.height);
     };
-    targetImage.src = "images/" + randomCard;
+    targetImage.src = "images/" + value;
 
 }
 
+// updates UI elements
 function updateInfo(element, data) {
     if (element == "compinfo") {
         document.getElementById(element).innerHTML = "Computer's hand: " + data;
@@ -205,10 +213,13 @@ function updateInfo(element, data) {
     }
 }
 
+// updates the overall scoreboard
 function updateBoard(val1, val2) {
     document.getElementById("score").innerHTML = ("Total score this game:<br>Computer | " + val1 + "\n Player | " + val2);
 }
 
+
+// wrapper function of drawCards for the computer to include score updating
 function compDraw() {
     updateInfo("gamestate", "Computer draws");
     console.log("Computer draws");
@@ -216,6 +227,7 @@ function compDraw() {
     compCurrent = calculateScore(compHandArray);
 }
 
+// the computers 'AI'
 function compTurn() {
     turnTracker = 1;
     updateInfo("gamestate", "Starting computer turn");
@@ -241,10 +253,14 @@ function compTurn() {
     }
 }
 
+// wrapper function for revealing the hidden second card in the computers hand
 function revealFacedowns() {
     changeHandSlot(compHandArray, 1, hiddenCard);
 }
 
+// adds players current score to storage after each round
+// on rounds they lost and therefore gained 0 points
+// this still runs but adds 0 to the score so no change occurs
 function updateScoreRecord() {
     currentUsersIndex = sessionStorage.getItem("activeUserStorageIndex");
     if (currentUsersIndex == null) {
@@ -257,4 +273,5 @@ function updateScoreRecord() {
     }
 }
 
+// starts the game
 window.onload = setupGame;

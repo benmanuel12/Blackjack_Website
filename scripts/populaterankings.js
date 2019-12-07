@@ -1,3 +1,4 @@
+// pulls data from storage, extracts names and scores, sorts them and inserts into html
 function populateRankings() {
     let allUsernames = [];
     let allScores = [];
@@ -37,9 +38,11 @@ function populateRankings() {
     }
 }
 
+// changes the html that counts how many accounts are made on the site
 function getTotalUserCount() {
     document.getElementById("totalcounter").innerHTML = localStorage.length.toString() + " accounts made";
 }
 
+// runs the functions
 window.onload = populateRankings;
 window.onload = getTotalUserCount;

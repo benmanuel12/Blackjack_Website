@@ -1,3 +1,4 @@
+// pulls data from storage, checks if user given exists and logs them in if so
 function login() {
     document.getElementById("logininfo").innerHTML = "hi";
     let givenUsername = document.getElementById('username').value;
@@ -25,6 +26,8 @@ function login() {
     }
 }
 
+// logs the current logged in user out
+// closing the tab or browser will do the same
 function logout() {
     sessionStorage.removeItem('activeUserStorageIndex');
     alert("You have logged out");

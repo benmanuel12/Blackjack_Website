@@ -10,7 +10,6 @@ outputNavBar();
 
 <!--Images of game-->
 <div id=imagegrid>
-    <!-- these aren't real images, I will swap them for screenshots of the game in action once the game is made -->
     <div id=image1>
         Image 1
     </div>

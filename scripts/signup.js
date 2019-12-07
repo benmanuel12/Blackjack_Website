@@ -1,4 +1,7 @@
+// signup function
 function signup() {
+
+    // pull data from form
     let newUsername = document.getElementById('username').value;
     let newPassword = document.getElementById('password').value;
     let newRepeatPassword = document.getElementById('repeatpassword').value;
@@ -7,12 +10,14 @@ function signup() {
 
     let myRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
+    // set up booleans
     let passwordsMatch = false;
     let phonecorrectLength = false;
     let phonecorrectFormat = false;
     let passwordcorrectFormat = false;
     let usernameUnique = true;
 
+    // check data is suitable
     if (newPassword == newRepeatPassword) {
         passwordsMatch = true;
     } else {
@@ -49,6 +54,7 @@ function signup() {
         }
     }
 
+    //create new account
     if (passwordsMatch && phonecorrectLength && phonecorrectFormat && passwordcorrectFormat && usernameUnique) {
         let newAccount = {
             username: newUsername,
@@ -57,6 +63,8 @@ function signup() {
             number: newPhone,
             score: 0
         };
+
+        // push to storage
         newJSON = JSON.stringify(newAccount);
         let newKey = localStorage.length;
         console.log(newKey);

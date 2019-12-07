@@ -8,10 +8,10 @@ outputHead('Home');
 outputNavBar();
 ?>
 
+<!--Main Body-->
 <div id=mainbodyrankings>
         <div id=leftrankings>
             <div id=toprankings>
-                <!--table of scores- can be switched out for a pull from database or local storage or whatever when the time is right -->
                 <table>
                     <tr>
                         <th>Rank</th>
