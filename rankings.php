@@ -4,7 +4,7 @@
 //Import the shared functions and output the head, heading, logo and navigation bar
 include('common.php');
 
-outputHead('Home');
+outputHead('Rankings');
 outputNavBar();
 ?>
 
@@ -20,53 +20,53 @@ outputNavBar();
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td id="name0">playerName</td>
-                        <td id="score0">playerScore</td>
+                        <td id="name0">-</td>
+                        <td id="score0">-</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td id="name1">playerName</td>
-                        <td id="score1">playerScore</td>
+                        <td id="name1">-</td>
+                        <td id="score1">-</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td id="name2">playerName</td>
-                        <td id="score2">playerScore</td>
+                        <td id="name2">-</td>
+                        <td id="score2">-</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td id="name3">playerName</td>
-                        <td id="score3">playerScore</td>
+                        <td id="name3">-</td>
+                        <td id="score3">-</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td id="name4">playerName</td>
-                        <td id="score4">playerScore</td>
+                        <td id="name4">-</td>
+                        <td id="score4">-</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td id="name5">playerName</td>
-                        <td id="score5">playerScore</td>
+                        <td id="name5">-</td>
+                        <td id="score5">-</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td id="name6">playerName</td>
-                        <td id="score6">playerScore</td>
+                        <td id="name6">-</td>
+                        <td id="score6">-</td>
                     </tr>
                     <tr>
                         <td>8</td>
-                        <td id="name7">playerName</td>
-                        <td id="score7">playerScore</td>
+                        <td id="name7">-</td>
+                        <td id="score7">-</td>
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td id="name8">playerName</td>
-                        <td id="score8">playerScore</td>
+                        <td id="name8">-</td>
+                        <td id="score8">-</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td id="name9">playerName</td>
-                        <td id="score9">playerScore</td>
+                        <td id="name9">-</td>
+                        <td id="score9">-</td>
                     </tr>
                 </table>
             </div>
