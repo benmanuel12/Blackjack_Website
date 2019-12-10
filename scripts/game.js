@@ -26,8 +26,8 @@ function setupGame() {
     }
 
     // have each player draw 2 cards
-    drawCards("comp", 2);
-    drawCards("player", 2);
+    drawCards(compHandArray, 2);
+    drawCards(playerHandArray, 2);
     console.log("drawn cards");
 
     compCurrent = calculateScore(compHandArray);
@@ -46,7 +46,7 @@ function setupGame() {
 }
 
 // Invoked to draw cards for either player
-function drawCards(thePlayer, noOfCards) {
+function drawCards(playerArray, noOfCards) {
     for (i = 0; i < noOfCards; i++) {
         randomCard = "";
         while (randomCard == "") {
@@ -54,34 +54,22 @@ function drawCards(thePlayer, noOfCards) {
             randomCard = deck[randomIndex];
         }
         deck[randomIndex] = "";
-        if (thePlayer == "comp") {
-            cardPlaced = false;
-            testIndex = 0;
-            while ((!cardPlaced) && (testIndex < 5)) {
-                if (compHandArray[testIndex] == 0) {
-                    compHandArray[testIndex] = faceValues[randomIndex];
-                    if (testIndex == 1) {
-                        hiddenCard = randomCard;
-                        changeHandSlot(compHandArray, testIndex, "blue_back.jpg");
-                        console.log("facedown");
-                    } else {
-                        changeHandSlot(compHandArray, testIndex, randomCard);
-                    }
-                    cardPlaced = true;
+        cardPlaced = false;
+        testIndex = 0;
+        while ((!cardPlaced) && (testIndex < 5)) {
+            if (playerArray[testIndex] == 0) {
+                playerArray[testIndex] = faceValues[randomIndex];
+                if ((playerArray == compHandArray) && (testIndex == 1)) {
+                    hiddenCard = randomCard;
+                    changeHandSlot(playerArray, testIndex, "blue_back.jpg");
+                    console.log("placed card facedown");
+                } else {
+                    changeHandSlot(playerArray, testIndex, randomCard);
+                    console.log("placed card faceup");
                 }
-                testIndex++;
+                cardPlaced = true;
             }
-        } else if (thePlayer == "player") {
-            cardPlaced = false;
-            testIndex = 0;
-            while ((!cardPlaced) && (testIndex < 5)) {
-                if (playerHandArray[testIndex] == 0) {
-                    playerHandArray[testIndex] = faceValues[randomIndex];
-                    cardPlaced = true;
-                    changeHandSlot(playerHandArray, testIndex, randomCard);
-                }
-                testIndex++;
-            }
+            testIndex++;
         }
     }
 }
@@ -89,7 +77,7 @@ function drawCards(thePlayer, noOfCards) {
 // Invoked by button of same name on webpage to allow player to draw cards at their own pace
 function twist() {
     if (turnTracker == 2) {
-        drawCards("player", 1);
+        drawCards(playerHandArray, 1);
         playerCurrent = calculateScore(playerHandArray);
         updateInfo("playerinfo", playerCurrent);
     }
@@ -173,8 +161,8 @@ function cleanUpAndReset() {
     }
     // reset info
 
-    drawCards("comp", 2);
-    drawCards("player", 2);
+    drawCards(compHandArray, 2);
+    drawCards(playerHandArray, 2);
     compCurrent = calculateScore(compHandArray);
     playerCurrent = calculateScore(playerHandArray);
     updateInfo("playerinfo", playerCurrent)
@@ -223,7 +211,7 @@ function updateBoard(val1, val2) {
 function compDraw() {
     updateInfo("gamestate", "Computer draws");
     console.log("Computer draws");
-    drawCards("comp", 1);
+    drawCards(compHandArray, 1);
     compCurrent = calculateScore(compHandArray);
 }
 
@@ -274,4 +262,4 @@ function updateScoreRecord() {
 }
 
 // starts the game
-window.onload = setupGame;
+window.onload = setupGame
