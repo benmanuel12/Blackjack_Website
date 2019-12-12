@@ -34,4 +34,5 @@ outputNavBar();
 outputFooter();
 ?>
 <script src="scripts/signup.js"></script>
+</body>
 </html>

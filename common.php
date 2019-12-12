@@ -11,6 +11,7 @@ echo <<<HEAD
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>$title</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="shortcut icon" href="#" />
 </head>
 
 <body>
@@ -46,13 +47,12 @@ function outputNavBar () {
 }
 
 // Function to output the footer
-function outputFooter () {
+function outputFooter(){
     echo <<<FOOTER
     <!--Footer-->
     <div id=footer>
     Benjamin Manuel 2019
     </div>
-    </body>
 FOOTER;
 }
 ?>

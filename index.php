@@ -26,4 +26,5 @@ outputNavBar();
 //Output the footer and closing HTML tags
 outputFooter();
 ?>
+</body>
 </html>

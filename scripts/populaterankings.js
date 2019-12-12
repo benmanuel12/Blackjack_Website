@@ -12,7 +12,13 @@ function populateRankings() {
     }
 
     // find the highest score and respective username
-    for (let i = 0; i < 10; i++) {
+    let limit = -1;
+    if (allScores.length >= 10) {
+        limit = 10;
+    } else {
+        limit = allScores.length;
+    }
+    for (let i = 0; i < limit; i++) {
         let best = 0;
         let bestIndex = -1;
         for (let j = 0; j < allScores.length; j++) {
@@ -31,8 +37,6 @@ function populateRankings() {
     for (let i = 0; i < top10.length; i++) {
         let currentUsername = top10[i][0];
         let currentScore = top10[i][1];
-        let nameID = "";
-        let scoreID = "";
         document.getElementById("name" + i.toString()).innerHTML = currentUsername;
         document.getElementById("score" + i.toString()).innerHTML = currentScore;
     }
@@ -43,6 +47,10 @@ function getTotalUserCount() {
     document.getElementById("totalcounter").innerHTML = localStorage.length.toString() + " accounts made";
 }
 
+function runAll() {
+    populateRankings();
+    getTotalUserCount();
+}
+
 // runs the functions
-window.onload = populateRankings;
-window.onload = getTotalUserCount;
+window.onload = runAll;

@@ -42,4 +42,5 @@ outputNavBar();
 outputFooter();
 ?>
 <script src="scripts/game.js"></script>
+</body>
 </html>

@@ -84,4 +84,5 @@ outputNavBar();
 outputFooter();
 ?>
 <script src="scripts/populaterankings.js"></script>
+</body>
 </html>

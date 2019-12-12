@@ -70,6 +70,8 @@ function signup() {
         console.log(newKey);
         localStorage.setItem(newKey, newJSON);
         alert("Sign up successful");
+        sessionStorage.setItem('activeUserStorageIndex', newKey);
+        alert("You are logged in");
     } else {
         alert("Sign up failed");
     }
