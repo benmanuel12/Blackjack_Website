@@ -28,19 +28,15 @@ function setupGame() {
     // have each player draw 2 cards
     drawCards(compHandArray, 2);
     drawCards(playerHandArray, 2);
-    console.log("drawn cards");
 
     compCurrent = calculateScore(compHandArray);
     playerCurrent = calculateScore(playerHandArray);
-    console.log("calculated scores");
 
     //Reset the cumulative scoreboard
     updateBoard(0, 0);
-    console.log("updated board");
 
     //Reset the tickers
     updateInfo("playerinfo", playerCurrent);
-    console.log("updated info");
 
     setTimeout(compTurn, 2000);
 }
@@ -62,10 +58,10 @@ function drawCards(playerArray, noOfCards) {
                 if ((playerArray == compHandArray) && (testIndex == 1)) {
                     hiddenCard = randomCard;
                     changeHandSlot(playerArray, testIndex, "blue_back.jpg");
-                    console.log("placed card facedown");
+
                 } else {
                     changeHandSlot(playerArray, testIndex, randomCard);
-                    console.log("placed card faceup");
+
                 }
                 cardPlaced = true;
             }
@@ -167,8 +163,6 @@ function cleanUpAndReset() {
     playerCurrent = calculateScore(playerHandArray);
     updateInfo("playerinfo", playerCurrent)
     updateInfo("gamestate", "Starting new game");
-    console.log("Starting new game");
-
 }
 
 // changes any card in any hand to any other card
@@ -210,7 +204,6 @@ function updateBoard(val1, val2) {
 // wrapper function of drawCards for the computer to include score updating
 function compDraw() {
     updateInfo("gamestate", "Computer draws");
-    console.log("Computer draws");
     drawCards(compHandArray, 1);
     compCurrent = calculateScore(compHandArray);
 }
@@ -219,7 +212,6 @@ function compDraw() {
 function compTurn() {
     turnTracker = 1;
     updateInfo("gamestate", "Starting computer turn");
-    console.log("Starting computer turn");
     while (compCurrent <= 16) {
         compDraw();
     }
@@ -227,17 +219,14 @@ function compTurn() {
         playerTotal += playerCurrent;
         updateBoard(compTotal, playerTotal);
         updateInfo("gamestate", "The computer has gone bust. You win");
-        console.log("The computer has gone bust. You win");
         turnTracker = 0;
         updateInfo("gamestate", "Running end of round functions");
-        console.log("Running end of round functions");
         cleanUpAndReset();
         compTurn();
     } else {
         turnDone = false;
         turnTracker = 2;
         updateInfo("gamestate", "Starting player turn");
-        console.log("Starting player turn");
     }
 }
 
