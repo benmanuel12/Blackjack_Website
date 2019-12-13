@@ -21,7 +21,7 @@ outputNavBar();
 </form>
     <div id=sidebar>
         <div id=button>
-            Log in instead?
+        <a href=login.php>Log in instead?</a>
         </div>
         <div id=signininfo>
             Use this form to sign up to the website and create an new player account. This allows the website to track your scores across games and update the Rankings page with high scores.

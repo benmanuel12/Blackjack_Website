@@ -25,7 +25,7 @@ outputNavBar();
 
     <div id=sidebar>
         <div id=button>
-            Sign in instead?
+        <a href=signup.php>Sign in instead?</a>
         </div>
         <div id=logininfo>
             Use this form to log into a pre-existing account so that your game scores can be tracked. High scores will be added to the Rankings page. Games played while not logged in will not be tracked.
